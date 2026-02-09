@@ -177,8 +177,8 @@
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 md:p-10 relative overflow-hidden">
           
           <!-- Subject Badge -->
-          <div class="absolute top-0 right-0 p-4">
-             <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
+          <div class="mb-4 md:absolute md:top-0 md:right-0 md:p-4">
+             <span class="text-[10px] md:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
                [class.bg-blue-100]="currentQuestion().subject === 'Português'"
                [class.text-blue-700]="currentQuestion().subject === 'Português'"
                [class.bg-indigo-100]="currentQuestion().subject === 'Matemática'"
@@ -187,7 +187,7 @@
              </span>
           </div>
 
-          <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 pr-12 leading-relaxed">
+          <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 md:pr-12 leading-relaxed">
             {{ currentQuestion().text }}
           </h3>
 
