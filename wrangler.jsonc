@@ -1,6 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "concurso-2026-prep",
+    "name": "concurso-2026",
     "compatibility_date": "2026-02-09",
     "assets": {
         "directory": "./dist"
