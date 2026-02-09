@@ -1,0 +1,316 @@
+<div class="min-h-screen pb-12">
+  <!-- Header / Hero -->
+  <header class="bg-gradient-to-r from-slate-900 to-slate-800 text-white pb-20 pt-8 shadow-md">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight text-white flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            Concurso 2026
+          </h1>
+          <p class="text-blue-200 mt-1 text-sm font-medium">Prepare-se para o futuro.</p>
+        </div>
+        
+        <div class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl border border-white/10 text-center">
+          <div class="text-xs text-blue-200 uppercase tracking-wider font-semibold mb-1">Tempo Restante</div>
+          <div class="text-2xl font-mono font-bold tabular-nums">
+            {{ countdown() }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="container mx-auto px-4 -mt-10 relative z-10">
+    
+    <!-- Navigation Bar -->
+    <div class="bg-white rounded-xl shadow-lg p-4 mb-8 flex items-center justify-between border border-slate-100">
+      <button 
+        (click)="changeDay(-1)"
+        class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors font-medium text-sm md:text-base cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden md:inline">Anterior</span>
+      </button>
+      
+      <div class="text-center">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-0.5">Cronograma</div>
+        <h2 class="text-xl font-bold text-slate-800 text-sm md:text-xl">
+          Dia {{ currentDayIndex() + 1 }} - {{ formattedCurrentDate() }}
+        </h2>
+      </div>
+
+      <button 
+        (click)="changeDay(1)"
+        class="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition-colors font-medium text-sm md:text-base cursor-pointer">
+        <span class="hidden md:inline">Próximo</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+
+    @if (viewMode() === 'study') {
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
+        
+        <!-- Portuguese Card -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 flex flex-col h-full group hover:shadow-xl transition-shadow duration-300">
+          <div class="bg-blue-50 p-4 border-b border-blue-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">P</span>
+              <h3 class="font-bold text-slate-800">Português</h3>
+            </div>
+            <span class="px-2 py-1 bg-white text-blue-700 text-xs font-semibold rounded border border-blue-200 uppercase truncate max-w-[150px]">
+              {{ currentSchedule().port.topic }}
+            </span>
+          </div>
+          
+          <!-- Thumbnail Link -->
+          <a [href]="getPortLink()" target="_blank" class="block relative group aspect-video bg-slate-900 overflow-hidden cursor-pointer">
+             <img [src]="getPortThumbnail()" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Aula Português">
+             <div class="absolute inset-0 flex items-center justify-center">
+               <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all shadow-lg">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M8 5v14l11-7z"/>
+                 </svg>
+               </div>
+             </div>
+             <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+               Ver no YouTube
+             </div>
+          </a>
+          
+          <div class="p-6 flex-grow flex flex-col justify-between">
+            <div>
+              <h4 class="font-semibold text-slate-700 mb-2">Foco do Dia</h4>
+              <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                Assista à aula clicando na imagem acima (abre em nova aba). Em seguida, treine com questões.
+              </p>
+            </div>
+            <button 
+               (click)="startQuiz('port')"
+               class="w-full mt-4 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold shadow-md shadow-blue-500/20 transition-all active:scale-95 cursor-pointer">
+               <span>Treinar Português</span>
+               <span class="text-xs bg-blue-500 px-2 py-0.5 rounded text-blue-100">30 Questões</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Math Card -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 flex flex-col h-full group hover:shadow-xl transition-shadow duration-300">
+          <div class="bg-indigo-50 p-4 border-b border-indigo-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm">M</span>
+              <h3 class="font-bold text-slate-800">Matemática</h3>
+            </div>
+            <span class="px-2 py-1 bg-white text-indigo-700 text-xs font-semibold rounded border border-indigo-200 uppercase truncate max-w-[150px]">
+              {{ currentSchedule().math.topic }}
+            </span>
+          </div>
+          
+           <!-- Thumbnail Link -->
+          <a [href]="getMathLink()" target="_blank" class="block relative group aspect-video bg-slate-900 overflow-hidden cursor-pointer">
+             <img [src]="getMathThumbnail()" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Aula Matemática">
+             <div class="absolute inset-0 flex items-center justify-center">
+               <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:bg-white/30 transition-all shadow-lg">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                   <path d="M8 5v14l11-7z"/>
+                 </svg>
+               </div>
+             </div>
+             <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+               Ver no YouTube
+             </div>
+          </a>
+          
+          <div class="p-6 flex-grow flex flex-col justify-between">
+             <div>
+               <h4 class="font-semibold text-slate-700 mb-2">Foco do Dia</h4>
+               <p class="text-slate-500 text-sm leading-relaxed mb-4">
+                 Assista à aula clicando na imagem acima (abre em nova aba). A prática leva à perfeição.
+               </p>
+             </div>
+             <button 
+               (click)="startQuiz('math')"
+               class="w-full mt-4 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-bold shadow-md shadow-indigo-500/20 transition-all active:scale-95 cursor-pointer">
+               <span>Treinar Matemática</span>
+               <span class="text-xs bg-indigo-500 px-2 py-0.5 rounded text-indigo-100">30 Questões</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    @if (viewMode() === 'quiz') {
+      <div class="max-w-3xl mx-auto animate-fade-in pb-20">
+        
+        <!-- Quiz Header -->
+        <div class="mb-6 flex flex-wrap items-center justify-between text-slate-500 gap-2">
+           <button (click)="exitQuiz()" class="text-sm font-semibold hover:text-slate-800 underline flex items-center gap-1 cursor-pointer">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+             </svg>
+             Voltar ao Estudo
+           </button>
+
+           <div class="flex items-center gap-4">
+             <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-bold border border-green-200 shadow-sm">
+                Acertos: {{ score() }}
+             </span>
+             <span class="text-sm font-medium">
+               Questão <span class="text-slate-900 font-bold">{{ currentQuestionIndex() + 1 }}</span> de {{ questions().length }}
+             </span>
+           </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8">
+          <div class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" [style.width.%]="quizProgress()"></div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 md:p-10 relative overflow-hidden">
+          
+          <!-- Subject Badge -->
+          <div class="absolute top-0 right-0 p-4">
+             <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
+               [class.bg-blue-100]="currentQuestion().subject === 'Português'"
+               [class.text-blue-700]="currentQuestion().subject === 'Português'"
+               [class.bg-indigo-100]="currentQuestion().subject === 'Matemática'"
+               [class.text-indigo-700]="currentQuestion().subject === 'Matemática'">
+               {{ currentQuestion().subject }}
+             </span>
+          </div>
+
+          <h3 class="text-lg md:text-xl font-bold text-slate-800 mb-8 pr-12 leading-relaxed">
+            {{ currentQuestion().text }}
+          </h3>
+
+          <div class="space-y-3">
+            @for (option of currentQuestion().options; track $index) {
+              <button 
+                (click)="selectAnswer($index)"
+                [disabled]="quizState() !== 'waiting_answer'"
+                class="w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center justify-between group relative overflow-hidden text-sm md:text-base cursor-pointer"
+                [class.border-slate-100]="quizState() === 'waiting_answer'"
+                [class.hover:border-blue-300]="quizState() === 'waiting_answer'"
+                [class.hover:bg-blue-50]="quizState() === 'waiting_answer'"
+                [class.border-green-500]="quizState() === 'answered' && $index === currentQuestion().correctIndex"
+                [class.bg-green-50]="quizState() === 'answered' && $index === currentQuestion().correctIndex"
+                [class.border-red-500]="quizState() === 'answered' && $index === selectedAnswerIndex() && $index !== currentQuestion().correctIndex"
+                [class.bg-red-50]="quizState() === 'answered' && $index === selectedAnswerIndex() && $index !== currentQuestion().correctIndex"
+                [class.opacity-50]="quizState() === 'answered' && $index !== currentQuestion().correctIndex && $index !== selectedAnswerIndex()">
+                
+                <span class="font-medium text-slate-700 relative z-10"
+                  [class.text-green-800]="quizState() === 'answered' && $index === currentQuestion().correctIndex"
+                  [class.text-red-800]="quizState() === 'answered' && $index === selectedAnswerIndex() && $index !== currentQuestion().correctIndex">
+                  {{ option }}
+                </span>
+
+                @if (quizState() === 'answered' && $index === currentQuestion().correctIndex) {
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                }
+                @if (quizState() === 'answered' && $index === selectedAnswerIndex() && $index !== currentQuestion().correctIndex) {
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                }
+              </button>
+            }
+          </div>
+
+          @if (quizState() === 'answered') {
+            <div class="mt-6 p-4 rounded-lg bg-slate-50 border border-slate-200 animate-fade-in">
+              <p class="font-bold text-slate-800 mb-1 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Explicação:
+              </p>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                {{ currentQuestion().explanation }}
+              </p>
+            </div>
+            
+            <div class="mt-8 flex justify-end">
+              <button 
+                (click)="nextQuestion()"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-blue-500/30 transition-all flex items-center gap-2 active:scale-95 cursor-pointer">
+                {{ isLastQuestion() ? 'Ver Resultado' : 'Próxima Questão' }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+          }
+
+        </div>
+      </div>
+    }
+
+    @if (viewMode() === 'results') {
+      <div class="max-w-md mx-auto mt-10 animate-fade-in text-center pb-20">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 border border-slate-100">
+           
+           <div class="mb-6 flex justify-center">
+             @if (scorePercentage() >= 70) {
+               <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                 </svg>
+               </div>
+             } @else {
+               <div class="w-24 h-24 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                 </svg>
+               </div>
+             }
+           </div>
+
+           <h2 class="text-3xl font-bold text-slate-800 mb-2">Treino Concluído!</h2>
+           <p class="text-slate-500 mb-8">Aqui está o seu desempenho de hoje.</p>
+
+           <div class="grid grid-cols-2 gap-4 mb-8">
+             <div class="bg-slate-50 p-4 rounded-2xl">
+               <div class="text-3xl font-bold text-slate-900">{{ score() }}</div>
+               <div class="text-xs text-slate-500 uppercase tracking-wide">Acertos</div>
+             </div>
+             <div class="bg-slate-50 p-4 rounded-2xl">
+               <div class="text-3xl font-bold" 
+                [class.text-green-600]="scorePercentage() >= 70"
+                [class.text-yellow-600]="scorePercentage() < 70"
+               >{{ scorePercentage() }}%</div>
+               <div class="text-xs text-slate-500 uppercase tracking-wide">Aproveitamento</div>
+             </div>
+           </div>
+
+           <div class="space-y-3">
+             <button 
+               (click)="restartQuiz()"
+               class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-blue-600/20 cursor-pointer flex items-center justify-center gap-2">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+               </svg>
+               Gerar +30 Questões
+             </button>
+             
+             <button 
+               (click)="resetToStudy()"
+               class="w-full bg-white text-slate-700 font-bold py-4 rounded-xl border border-slate-200 hover:bg-slate-50 transition-colors cursor-pointer">
+               Voltar ao Cronograma
+             </button>
+           </div>
+        </div>
+      </div>
+    }
+
+  </main>
+</div>

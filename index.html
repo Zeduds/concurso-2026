@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- SEO & Identity -->
+    <title>Concurso 2026 Prep | Cronograma Inteligente</title>
+    <meta name="description" content="Plataforma de estudo para concurso com cronograma diário, aulas em vídeo e gerador de questões infinitas de Matemática e Português.">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="icon" type="image/svg+xml" href="https://fonts.gstatic.com/s/i/materialicons/school/v6/24px.svg">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://concurso2026.app/">
+    <meta property="og:title" content="Concurso 2026 Prep">
+    <meta property="og:description" content="Prepare-se para a prova com cronograma diário e quizzes infinitos.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Concurso 2026 Prep">
+    <meta property="twitter:description" content="Estude Matemática e Português com inteligência.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #94a3b8; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #64748b; 
+      }
+      
+      /* Animation Utilities */
+      .animate-fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+    
+    <script type="importmap">
+    {
+      "imports": {
+        "rxjs": "https://esm.sh/rxjs@^7.8.2?conditions=es2015",
+        "rxjs/operators": "https://esm.sh/rxjs@^7.8.2/operators?conditions=es2015",
+        "rxjs/ajax": "https://esm.sh/rxjs@^7.8.2/ajax?conditions=es2015",
+        "rxjs/webSocket": "https://esm.sh/rxjs@^7.8.2/webSocket?conditions=es2015",
+        "rxjs/testing": "https://esm.sh/rxjs@^7.8.2/testing?conditions=es2015",
+        "rxjs/fetch": "https://esm.sh/rxjs@^7.8.2/fetch?conditions=es2015",
+        "@angular/core": "https://esm.sh/@angular/core@^21.1.3?external=rxjs",
+        "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^21.1.3?external=rxjs",
+        "@angular/compiler": "https://esm.sh/@angular/compiler@^21.1.3?external=rxjs"
+      }
+    }
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-200">
+    <app-root></app-root>
+  </body>
+</html>
