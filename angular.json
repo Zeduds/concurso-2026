@@ -23,7 +23,7 @@
               "index.css"
             ],
             "assets": [
-              "_redirects"
+              "404.html"
             ]
           },
           "configurations": {
